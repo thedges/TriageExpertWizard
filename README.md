@@ -10,19 +10,13 @@ This is Aura Lightning Component that allows including a Salesforce Maps MiniMap
 
 ## Component Configuration
 
-The component has two configuration properties as defined below.
-
-| Parameter | Description |
-|-----------|-------------|
-| <b>Height</b> | The height of the iframe in pixels.|
-| <b>Mini Map ID</b> | The Salesforce record id of the Salesforce Maps mini map configuration. You need to get this from the MapAnything setup. |
+This component currently has no configuration properties.
 
 ## Component Install and Setup
 
 To use this component:
 1. Install the component using the **'Deploy to Salesforce'** button below.
-2. Drag the **LiveChatMiniMap** Lightning Component on to your record page
-3. Set the component property **height** and **mini map id**.
+2. Drag the **TriageExpertWidget** Lightning Component on to your case record page
 
 <a href="https://githubsfdeploy.herokuapp.com">
   <img alt="Deploy to Salesforce"
