@@ -1,0 +1,92 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge;"/>
+        <meta charset="utf-8"/>
+        
+        <title>Triage Expert Call Center - Review</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="{!URLFOR($Resource.TriageExpertWizard, 'js/tpt/jquery.mobile-1.4.5.min.css')}" type="text/css"/>
+        <link rel="stylesheet" href="{!URLFOR($Resource.TriageExpertWizard, 'css/txccWidget.css')}" type="text/css"/>
+        <script src="{!URLFOR($Resource.TriageExpertWizard, 'js/ResizeSensor.js')}"></script>
+        <script src="{!URLFOR($Resource.TriageExpertWizard, 'js/ElementQueries.js')}"></script>
+        <script src="{!URLFOR($Resource.TriageExpertWizard, 'js/tpt/jquery-2.1.4.min.js')}" type="text/javascript"></script>
+        <script src="{!URLFOR($Resource.TriageExpertWizard, 'js/tpt/jquery.mobile-1.4.5.min.js')}" type="text/javascript"></script>
+        <script src="{!URLFOR($Resource.TriageExpertWizard, 'js/txccWidget.js')}"></script>
+        
+        <script type="text/javascript">
+            var lexOrigin = "https://thdevorg-dev-ed.lightning.force.com";
+        
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+        
+        function getUrlParam(parameter, defaultvalue){
+            var urlparameter = defaultvalue;
+            if(window.location.href.indexOf(parameter) > -1){
+                urlparameter = getUrlVars()[parameter];
+            }
+            return urlparameter;
+        }
+        
+        function doComplete(event, eData) {
+            console.log('json=' + JSON.stringify(eData, 2));
+            
+            var message = {};
+            message.cmd = 'disposition';
+            message.recordId = getUrlParam('recordId', null);
+            message.value = eData;
+            parent.postMessage(JSON.stringify(message), '*');
+        }
+        
+        $(document).ready(function () {
+            $('#txccWidget').bind('complete', doComplete);
+            
+            $('#expertTab').bind('cut copy paste', function (e) {
+                e.preventDefault();
+                console.log('blocked cut copy paste');
+                return false;
+            });
+            $('#expertTab').on('contextmenu', function (e) {
+                e.preventDefault();
+                console.log('blocked contextmenu');
+                return false;
+            });
+            
+            var element = document.getElementById('txccWidget');
+            new ResizeSensor(element, function () {
+                var message = {};
+                message.cmd = 'height';
+                message.recordId = getUrlParam('recordId', null);
+                message.value = element.clientHeight;
+                parent.postMessage(JSON.stringify(message), '*');
+            });
+
+
+            //////////////////////////
+            // setup gender and dob //
+            //////////////////////////
+            const gender = getUrlParam('gender', null);
+            const dob = getUrlParam('dob', null);
+
+            if (gender != null && dob != null)
+            {
+              var startObject = new Object();
+              startObject.gender = gender;
+              startObject.dob = new Date(dob);
+              $('#txccWidget').expertui("start", startObject);
+            }
+
+        });
+        </script>
+    </head>
+    
+    <body style="font-family: Helvetica, Arial, sans-serif;">
+        <div>
+            <div id="txccWidget" data-role="expertui" data-options='{"mode":"TXCC", "demographics":true}'></div>
+        </div>
+    </body>
+</apex:page>
