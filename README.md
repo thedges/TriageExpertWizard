@@ -1,5 +1,5 @@
 # TriageExpertWizard
-A Lightning Component to show capability of exposing the [DSHI Systems](https://www.dshisystems.com/) Triage Wizard inside Salesforce so that case/call center agents can assist clients with medical care.
+A Lightning Component to show capability of exposing the [DSHI Systems](https://www.dshisystems.com/) Triage Wizard inside Salesforce so that case/call center agents can assist clients with medical care. This component was built as a demo to show integration capabilities. Currently in discussions with DSHI on technical approach/options to potentially make the wizard more native to Salesforce.
 
 THIS SOFTWARE IS COVERED BY [THIS DISCLAIMER](https://raw.githubusercontent.com/thedges/Disclaimer/master/disclaimer.txt).
 
